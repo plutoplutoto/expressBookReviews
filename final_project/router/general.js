@@ -11,7 +11,7 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-public_users.get('/:books',function (req, res) {
+public_users.get('/q',function (req, res) {
   //Write your code here
   res.send(JSON.stringify(books,null,4));
   return res.status(300).json({message: "Yet to be implemented"});
@@ -20,7 +20,7 @@ public_users.get('/:books',function (req, res) {
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
   //Write your code here
-  const isbn = req.params.books;
+  const isbn = req.params.isbn;
   res.send(books[isbn]);
 //   return res.status(300).json({message: "Yet to be implemented"});
  });
@@ -28,7 +28,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
   //Write your code here
-  const author = req.params.books;
+  const author = req.params.author;
   res.send(books[author]);
 //   return res.status(300).json({message: "Yet to be implemented"});
 });
@@ -36,7 +36,7 @@ public_users.get('/author/:author',function (req, res) {
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
   //Write your code here
-  const title = req.params.books;
+  const title = req.params.title;
   res.send(books[title]);
 //   return res.status(300).json({message: "Yet to be implemented"});
 });
@@ -44,7 +44,7 @@ public_users.get('/title/:title',function (req, res) {
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here
-  const review = req.params.books;
+  const review = req.params.review;
   res.send(books[review]);
 //   return res.status(300).json({message: "Yet to be implemented"});
 });
