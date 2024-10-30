@@ -42,7 +42,7 @@ public_users.get('/title/:title',function (req, res) {
 });
 
 //  Get book review
-public_users.get('/review/:isbn',function (req, res) {
+public_users.get('/review/:review',function (req, res) {
   //Write your code here
   const review = req.params.review;
   res.send(books[review]);
