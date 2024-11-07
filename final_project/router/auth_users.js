@@ -57,6 +57,7 @@ regd_users.post("/login", (req,res) => {
 
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
+console.log (Puipuipui)
   //Write your code here
   const isbn = req.params.isbn;
   let book = books[isbn];  
@@ -67,7 +68,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
           book["username"] = username;
       }
     
-      books[username] = book;  
+      books[username] = book;      
       res.send(`Review with the username ${username} updated.`);
   } else {
     
