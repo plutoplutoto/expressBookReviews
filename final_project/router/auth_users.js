@@ -40,11 +40,13 @@ regd_users.post("/login", (req,res) => {
         return res.status(404).json({ message: "Error logging in" });
     }
     if (authenticatedUser(username, password)) {
-      
-        let accessToken = jwt.sign({
-            data: password
-        }, 'access', { expiresIn: 60 * 60 });
-       
+
+        const accessToken = jwt.sign(
+            { username }, 
+            'access',  // Secret key; replace with a strong secret in production
+            { expiresIn: '1h' }
+        );
+    
         req.session.authorization = {
             accessToken, username
         }
