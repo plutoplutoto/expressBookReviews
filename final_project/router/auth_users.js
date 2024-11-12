@@ -33,6 +33,7 @@ const authenticatedUser = (username,password)=>{
 
 //only registered users can login
 regd_users.post("/login", (req,res) => {
+    console.log("login endpoint");
     const username = req.body.username;
     const password = req.body.password;
     
@@ -41,15 +42,14 @@ regd_users.post("/login", (req,res) => {
     }
     if (authenticatedUser(username, password)) {
 
-        const accessToken = jwt.sign(
-            { username }, 
-            'access',  // Secret key; replace with a strong secret in production
-            { expiresIn: '1h' }
-        );
-    
+        let accessToken = jwt.sign({
+            data: password
+        }, 'access', { expiresIn: 60 * 60 });
+
         req.session.authorization = {
             accessToken, username
         }
+        console.log(req.session)
         return res.status(200).send("User successfully logged in");
     } else {
         return res.status(208).json({ message: "Invalid Login. Check username and password" });
@@ -59,8 +59,8 @@ regd_users.post("/login", (req,res) => {
 
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
-console.log (Puipuipui)
   //Write your code here
+    console.log("Puipuipui");
   const isbn = req.params.isbn;
   let book = books[isbn];  
   if (book) {  
