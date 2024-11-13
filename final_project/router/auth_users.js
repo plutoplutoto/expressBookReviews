@@ -5,12 +5,12 @@ const regd_users = express.Router();
 
 let users = [];
 
-const isValid = (username)=> {
-    
+const isValid = (username) => {
+
     let userswithsamename = users.filter((user) => {
         return user.username === username;
     });
-    
+
     if (userswithsamename.length > 0) {
         return true;
     } else {
@@ -19,7 +19,7 @@ const isValid = (username)=> {
 }
 
 
-const authenticatedUser = (username,password)=>{ 
+const authenticatedUser = (username, password) => {
     let validusers = users.filter((user) => {
         return (user.username === username && user.password === password);
     });
@@ -32,11 +32,11 @@ const authenticatedUser = (username,password)=>{
 
 
 //only registered users can login
-regd_users.post("/login", (req,res) => {
+regd_users.post("/login", (req, res) => {
     console.log("login endpoint");
     const username = req.body.username;
     const password = req.body.password;
-    
+
     if (!username || !password) {
         return res.status(404).json({ message: "Error logging in" });
     }
@@ -59,24 +59,39 @@ regd_users.post("/login", (req,res) => {
 
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
-  //Write your code here
-    console.log("Puipuipui");
-  const isbn = req.params.isbn;
-  let book = books[isbn];  
-  if (book) {  
-      let username = req.body.username;
-      
-      if (username) {
-          book["username"] = username;
-      }
-    
-      books[username] = book;      
-      res.send(`Review with the username ${username} updated.`);
-  } else {
-    
-      res.send("Unable to find review!");
-  }
+    //Write your code here
+    const isbn = req.params.isbn;
+    const users = req.params.users;
+    let book = books[isbn];
+    if (users) {
+        console.log(book)
+        let username = req.body.username;
+        let reviews = req.body.reviews;
+        console.log(`uuuu: ${reviews}`)
+        let isbn = req.body.isbn;
+
+        if (username) {
+            users["username"] = username;
+        }
+        if (reviews) {
+            users["reviews"] = reviews;
+        }
+        if (isbn) {
+            users["isbn"] = isbn;
+        }
+
+        users[reviews] = users;
+        res.send(`Review with the username ${username} updated.`);
+    } else {
+
+        res.send("Unable to find user!");
+    }
+    console.log(book)
 });
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+    
+});
+
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
 module.exports.users = users;
