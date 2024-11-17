@@ -50,6 +50,7 @@ regd_users.post("/login", (req, res) => {
             accessToken, username
         }
         console.log(req.session)
+        console.log(`look: ${req.session.authorization.username}`)
         return res.status(200).send("User successfully logged in");
     } else {
         return res.status(208).json({ message: "Invalid Login. Check username and password" });
@@ -59,15 +60,31 @@ regd_users.post("/login", (req, res) => {
 
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
-    //Write your code here
-    console.log("jojojojojojojojoj");
-    function updateBooks() {
-        books[4].reviews = { tom: "great", jerry: "greater", blabla: "notso good" };
-        console.log(books);
-    }
-    updateBooks();
-});
-console.log(books[4])
+    //     //Write your code here
+        console.log("jojojojojojojojoj");
+        function updateBooks() {
+            const isbn = req.params.isbn
+            const username = req.body.username
+            let book = books[isbn]
+            console.log(username);
+            if (username) {
+            books[isbn].reviews[username] = req.body.reviews;
+            }
+            // console.log(books);
+        }
+        updateBooks();
+        return res.status(200).json({ message: `Review updated successfully`, books });
+    });
+    // console.log(books);
+    
+
+
+   
+    
+
+
+
+module.exports = regd_users;
 regd_users.delete("/auth/review/:isbn", (req, res) => {
 
 });
