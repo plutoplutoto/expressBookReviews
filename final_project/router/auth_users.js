@@ -60,36 +60,16 @@ regd_users.post("/login", (req, res) => {
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
     //Write your code here
-    const isbn = req.params.isbn;
-    const users = req.params.users;
-    let book = books[isbn];
-    if (users) {
-        console.log(book)
-        let username = req.body.username;
-        let reviews = req.body.reviews;
-        console.log(`uuuu: ${reviews}`)
-        let isbn = req.body.isbn;
-
-        if (username) {
-            users["username"] = username;
-        }
-        if (reviews) {
-            users["reviews"] = reviews;
-        }
-        if (isbn) {
-            users["isbn"] = isbn;
-        }
-
-        users[reviews] = users;
-        res.send(`Review with the username ${username} updated.`);
-    } else {
-
-        res.send("Unable to find user!");
+    console.log("jojojojojojojojoj");
+    function updateBooks() {
+        books[4].reviews = { tom: "great", jerry: "greater", blabla: "notso good" };
+        console.log(books);
     }
-    console.log(book)
+    updateBooks();
 });
+console.log(books[4])
 regd_users.delete("/auth/review/:isbn", (req, res) => {
-    
+
 });
 
 module.exports.authenticated = regd_users;
