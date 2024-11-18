@@ -70,15 +70,27 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
         if (username) {
             books[isbn].reviews[username] = req.body.reviews;
             return res.status(200).json({ message: `Review with ${req.session.authorization.username} updated successfully.`, book });
-        }else {
-        res.send("Unable to find username!");
+        } else {
+            res.send("Unable to find username!");
+        }
     }
-}
-        updateBooks();
+    updateBooks();
+});
 
-    });
-// console.log(books);
-
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+    function updateBooks() {
+        const isbn = req.params.isbn
+        const username = req.session.authorization.username
+        let book = books[isbn]
+        if (username) {
+            delete books[isbn].reviews[username] 
+            return res.status(200).json({ message: `Review with ${req.session.authorization.username} deleted successfully.`, book });
+        } else {
+            res.send("Unable to find username!");
+        }
+    }
+    updateBooks();
+});
 
 
 
@@ -87,10 +99,6 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
 
 
 module.exports = regd_users;
-regd_users.delete("/auth/review/:isbn", (req, res) => {
-
-});
-
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
 module.exports.users = users;
