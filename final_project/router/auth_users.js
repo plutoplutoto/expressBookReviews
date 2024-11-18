@@ -61,26 +61,28 @@ regd_users.post("/login", (req, res) => {
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
     //     //Write your code here
-        console.log("jojojojojojojojoj");
-        function updateBooks() {
-            const isbn = req.params.isbn
-            const username = req.body.username
-            let book = books[isbn]
-            console.log(username);
-            if (username) {
+    console.log("jojojojojojojojoj");
+    function updateBooks() {
+        const isbn = req.params.isbn
+        const username = req.session.authorization.username
+        let book = books[isbn]
+        console.log(username);
+        if (username) {
             books[isbn].reviews[username] = req.body.reviews;
-            }
-            // console.log(books);
-        }
+            return res.status(200).json({ message: `Review with ${req.session.authorization.username} updated successfully.`, book });
+        }else {
+        res.send("Unable to find username!");
+    }
+}
         updateBooks();
-        return res.status(200).json({ message: `Review updated successfully`, books });
+
     });
-    // console.log(books);
-    
+// console.log(books);
 
 
-   
-    
+
+
+
 
 
 
