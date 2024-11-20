@@ -25,11 +25,15 @@ public_users.post("/register", (req, res) => {
 // Get the book list available in the shop
 public_users.get('/books', function (req, res) {
     //Write your code here
+    console.log("promise starting...")
+    console.log(Date.now())
     let myPromise1 = new Promise((resolve, reject) => {
         setTimeout(() => {
+            console.log( Date.now())
             resolve("Promise 1 resolved");
         }, 6000);
     });
+    console.log("hi!!!")
     myPromise1.then((message) => {
         console.log(message); 
         res.send(JSON.stringify(books, null, 4)); 
@@ -37,14 +41,18 @@ public_users.get('/books', function (req, res) {
         console.error(error); 
         res.status(500).send("An error occurred.");
     });
+    console.log("Buh!")
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn', function (req, res) {
     //Write your code here
+    console.log("promise starting...")
+    console.log(Date.now())
     const isbn = req.params.isbn;
     let getBookByISBN = new Promise((resolve, reject) => {
         setTimeout(() => {
+            console.log( Date.now())
             const book = books[isbn]; 
             if (book) {
                 resolve(book); 
@@ -53,6 +61,7 @@ public_users.get('/isbn/:isbn', function (req, res) {
             }
         }, 2000); 
     });
+    console.log("Aha!!!")
     getBookByISBN
         .then((book) => {
             res.json(book); 
@@ -65,9 +74,12 @@ public_users.get('/isbn/:isbn', function (req, res) {
 // Get book details based on author
 public_users.get('/author/:author', function (req, res) {
     //Write your code here
+    console.log("promise starting...")
+    console.log(Date.now())
     const author = req.params.author;
     let getBooksByAuthor = new Promise((resolve, reject) => {
         setTimeout(() => {
+            console.log(Date.now())
             const booksByAuthor = Object.values(books).filter(book => book.author === author);
             if (booksByAuthor.length > 0) {
                 resolve(booksByAuthor); 
@@ -76,7 +88,7 @@ public_users.get('/author/:author', function (req, res) {
             }
         }, 2000); 
     });
-
+    console.log("Yeah!!!")
     getBooksByAuthor
         .then((books) => {
             res.json(books); 
@@ -89,9 +101,12 @@ public_users.get('/author/:author', function (req, res) {
 // Get all books based on title
 public_users.get('/title/:title', function (req, res) {
     //Write your code here
+    console.log("promise starting...")
+    console.log(Date.now())
     const title = req.params.title;
     let getBooksByTitle = new Promise((resolve, reject) => {
         setTimeout(() => {
+            console.log(Date.now())
             const booksByTitle = Object.values(books).filter(book => book.title === title);
             if (booksByTitle.length > 0) {
                 resolve(booksByTitle); 
@@ -100,7 +115,7 @@ public_users.get('/title/:title', function (req, res) {
             }
         }, 2000); 
     });
-
+    console.log("Yippy!!!")
     getBooksByTitle
         .then((books) => {
             res.json(books); 
